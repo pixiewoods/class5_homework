@@ -1,0 +1,66 @@
+<html ng-app="myApp">
+<head>
+	<link rel="stylesheet" type="text/css" href="bootstrap-sass-3.3.5/assets/css/_bootstrap.css">
+	<script src="https://code.angularjs.org/1.2.3/angular.js"></script>
+	<script src="js/app.js"></script>
+
+	<style>
+	.even { color: red; }
+	.odd { color: blue; }
+	.portfolio-date {
+		display: inline-block;
+		float:right;
+	}
+	input[type=text], textarea {
+		padding: 3px;
+		border-radius: 4px;
+		border: 1px solid rgba(0,0,0,.2);
+		color: #333;
+	}
+	.col-xs-4 {
+		min-height: 380px;
+	}
+	</style>
+
+</head>
+
+<body style="padding: 50px" ng-controller="PortfolioListController">
+
+	<div class="container-fluid">
+
+		<p>Filter list: <input ng-model="searchFor" size="30"/></p>
+
+		<div class="col-xs-4">
+			<div class="panel panel-default panel-primary">
+				<div class="panel-heading"> 
+					<input type="text" placeholder="title" size="20" ng-model="adding_portfolio.title" />
+					<span class="portfolio-date">
+						<input type="text" placeholder="yyyy/mm/dd" size="10" ng-model="adding_portfolio.date" />
+					</span>
+				</div>
+				<div class="panel-body">
+					<textarea placeholder="description" rows="4" style="width:100%;" ng-model="adding_portfolio.description"></textarea>
+					<input type="text" placeholder="short name" ng-model="adding_portfolio.name" />
+
+					<button ng-click="addPortfolio(adding_portfolio)" type="button" class="btn btn-success">Add Portfolio</button>
+				</div>
+			</div>
+		</div>
+	
+	<div class="col-xs-4" ng-repeat="portfolio in portfolios | filter:searchFor | orderBy:'date' " >
+		<div class="panel panel-default panel-primary">
+			<div class="panel-heading"> 
+				{{ portfolio.name }} <span class="portfolio-date">{{ portfolio.date }}</span>
+			</div>
+			<div class="panel-body">
+				<p>{{ portfolio.description }}</p>
+				<img class="img-responsive" ng-src="images/{{ portfolio.imageurl }}" />
+			</div>
+		</div>
+	</div>
+</div>
+
+<p> There are {{ portfolios.length }} portfolios so far!</p>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JSON</title>
+    <style type="text/css">
+    
+    #placeholder { border:1px solid #eee; padding:4px; }
+    ul {list-style: none;}
+    img { width: 10%; }
+    
+    </style>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+</head>
+
+<body>
+
+    <div id="placeholder"></div>
+
+    <script>
+ 
+ $.getJSON('portfolios.JSON' , function(data){
+
+
+ /*   document.getElementById("placeholder").innerHTML = 
+    data.portfolios[0].title + " // " + data.portfolios[0].description;
+*/
+
+    var output = "<ul>";
+    for (var i in data.portfolios){
+        output += "<li>" + 
+        "<img src=" + 
+        data.portfolios[i].imageurl.img1 + " />" + 
+        data.portfolios[i].title + " // " + 
+        data.portfolios[i].date + " // " + 
+        data.portfolios[i].description + " // " + 
+        "</li>";
+    }
+
+    output += "</ul>"
+
+    document.getElementById("placeholder").innerHTML = output;
+
+ });
+    </script>
+</body>
+</html>
