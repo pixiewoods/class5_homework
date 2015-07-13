@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="myApp">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
 
   <title>My Portfolio</title>
+  <link rel="stylesheet" type="text/css" href="bootstrap-sass-3.3.5/assets/css/_bootstrap.css">
   <link rel="stylesheet" href="css/styles.css">
-  <script src="js/modernizr.js"></script>
-  <script src="https://code.angularjs.org/1.3.0-rc.1/angular.min.js"></script>
-</head>
-<body ng-init="portfolios = [
-  {name: 'vessel1309', title: 'Call of Booty', date: '2013-09-01', description: 'Arrrgh mateys! This be the finest vessel sailing these seas that yer eyes ever laid sight on. Arrrgh.', imageurl: 'drunkenPirate_thumb3.png' },
-  {name: 'innocents1404', title: 'The Sack of the Innocents', date: '2014-04-15', description: 'This be a detail of the sacking of the innocents where I played an important role as business analyst and in implementation.', imageurl: 'drunkenPirate_thumb2.png' },
-  {name: 'firstmate1210', title: 'Pipe and First Mate', date: '2012-10-01', description: 'After a hard day of lootin\' and shootin\' I like to relax with my best mates and tally up the days booty.', imageurl: 'drunkenPirate_thumb1.png' }
-  ]">
+  <script src="js/modernizr.js"></script> 
+  <script src="https://code.angularjs.org/1.2.3/angular.js"></script>
+  <script src="js/app.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
+</head>
+
+<body ng-controller="PortfolioListController">
   <main class="wrap group">
     <aside class="sidebar">
      <div class="my-info">
@@ -59,39 +59,49 @@
 
     </nav>
   </aside>
-  <div class="content">
-
 
     <!-- inside the .content div -->
+  <div class="content"> 
 
-    <article class="portfolio-item group first" ng-repeat="portfolio in portfolios | filter:searchFor | orderBy:'date' ">
-      <header class="portfolio-info">
-        <div class="title">{{ portfolio.title }}</div>
-        <div class="date">{{ portfolio.date }}</div>
-        <div class="description">
-          {{ portfolio.description }}
+  <div class="container-fluid">
+
+    <div class="col-sm-4">
+      <div class="panel panel-default panel-primary">
+        <div class="panel-heading"> 
+          <p></p>
         </div>
-      </header>
-      <figure class="portfolio-image">
-        <img src="images/drunkenPirate_thumb1.png" alt="Pipe and Mate">
-      </figure>
-    </article>
-
-    <article class="portfolio-item group loading-wrap">
-      <header class="portfolio-info">
-      </header>
-      <figure class="portfolio-image">
-        <div class="loading">
-          <img src="images/loading.png" alt="Loading" class="rotate">&nbsp;Loading...
+        <div class="panel-body">
+          <input type="text" placeholder="title" size="25" ng-model="adding_portfolio.title" />
+          <span class="portfolio-date">
+            <input type="text" placeholder="yyyy/mm/dd" size="10" ng-model="adding_portfolio.date" />
+          </span>       
+          <textarea placeholder="description" rows="4" style="width:100%;" ng-model="adding_portfolio.description"></textarea>
+          <input type="text" placeholder="short name" size="25" ng-model="adding_portfolio.name" />
+          <input type="text" placeholder="image" size="25" ng-model="adding_portfolio.imageurl" />
+          <p></p>
+          <button ng-click="addPortfolio(adding_portfolio)" type="button" class="btn btn-success">Add Portfolio</button>
         </div>
-      </figure>
-    </article>
+      </div>
+    </div>
+  </div>  
 
-
+    <div  class="col-sm-4" ng-repeat="portfolio in portfolios | filter:searchFor | orderBy:'date' " >
+    <div class="panel panel-default panel-primary">
+      <div class="panel-heading"> 
+        {{ portfolio.title }} 
+        <p class="portfolio-date">{{ portfolio.date }}</p>
+      </div>
+      <div class="panel-body">
+        <p>{{ portfolio.description }}</p>
+        <img class="img-responsive" ng-src="images/{{ portfolio.imageurl }}" />
+      </div>
+    </div>
+    </div>
   </div>
+</div>
+
 </main>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="js/app.js"></script>
+
 </body>
 </html>
 
